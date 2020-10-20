@@ -26,7 +26,11 @@
     "coverage": "npm test -- --coverage",
     "lint": "standard --verbose",
     "lint:fix": "standard --fix --verbose",
-    "precommit": "npm test"
+    "precommit": "npm test",
+    "clean": "del-cli dist && make-dir dist",
+    "build": "npm run build-dev && npm run minify",
+    "build-dev": "npm run clean && browserify index.js -s mod10CheckDigit > dist/mod10CheckDigit.js",
+    "minify": "uglifyjs dist/mod10CheckDigit.js > dist/mod10CheckDigit.min.js"
   },
   "keywords": [
     "mod10",
@@ -39,8 +43,11 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "browserify": "^17.0.0",
+    "del-cli": "^3.0.1",
     "husky": "^0.14.3",
     "jest": "^22.0.0",
-    "standard": "^11.0.0"
+    "make-dir-cli": "^2.0.0",
+    "uglify-js": "^3.11.3"
   }
 }
